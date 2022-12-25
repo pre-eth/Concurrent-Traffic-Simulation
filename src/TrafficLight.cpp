@@ -7,8 +7,7 @@
 
 namespace chrono = std::chrono;
 
-void TrafficLight::waitForGreen()
-{
+void TrafficLight::waitForGreen() {
     auto phase = TrafficLight::RED; // aka 0
     while (!phase) {
         // enum where GREEN = 1
@@ -17,8 +16,7 @@ void TrafficLight::waitForGreen()
 } 
 
 // virtual function which is executed in a thread
-void TrafficLight::cycleThroughPhases()
-{
+void TrafficLight::cycleThroughPhases() {
     std::uniform_real_distribution<double> ufd(4.0, 6.0);
     std::default_random_engine rng;
     auto cycleDuration = ufd(rng);

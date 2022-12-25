@@ -41,7 +41,6 @@ class TrafficLight : TrafficObject
     public:
 
     enum TrafficLightPhase { RED, GREEN };
-    // getters / setters
 
     void waitForGreen();
     void simulate() { threads.emplace_back(std::thread(&TrafficLight::cycleThroughPhases, this)); };
