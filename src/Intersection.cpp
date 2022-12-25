@@ -121,14 +121,12 @@ void Intersection::processVehicleQueue()
     //std::cout << "Intersection #" << _id << "::processVehicleQueue: thread id = " << std::this_thread::get_id() << std::endl;
 
     // continuously process the vehicle queue
-    while (true)
-    {
+    while (true) {
         // sleep at every iteration to reduce CPU usage
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
 
         // only proceed when at least one vehicle is waiting in the queue
-        if (_waitingVehicles.getSize() > 0 && !_isBlocked)
-        {
+        if (_waitingVehicles.getSize() > 0 && !_isBlocked) {
             // set intersection to "blocked" to prevent other vehicles from entering
             this->setIsBlocked(true);
 
@@ -138,15 +136,10 @@ void Intersection::processVehicleQueue()
     }
 }
 
-bool Intersection::trafficLightIsGreen()
-{
-   // please include this part once you have solved the final project tasks
-   /*
-   if (_trafficLight.getCurrentPhase() == TrafficLightPhase::green)
-       return true;
-   else
+bool Intersection::trafficLightIsGreen() {
+
+   if (!_trafficLight.getCurrentPhase())
        return false;
-   */
 
   return true; // makes traffic light permanently green
 } 

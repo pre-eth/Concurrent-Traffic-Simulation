@@ -22,19 +22,16 @@ void TrafficLight::cycleThroughPhases() {
     auto cycleDuration = ufd(rng);
     
     auto start = chrono::high_resolution_clock::now();
-    auto end = chrono::high_resolution_clock::now();
-    auto elapsed = end - start;
+    auto elapsed = chrono::high_resolution_clock::now() - start;
     
     while (1) {
-        std::this_thread::sleep_for(chrono::milliseconds(1));
-        end = chrono::high_resolution_clock::now();
+        std::this_thread::sleep_for(chrono::milliseconds(120));
+        elapsed = chrono::high_resolution_clock::now() - start;
         if (elapsed.count() > cycleDuration) {
             start = chrono::high_resolution_clock::now();
             _currentPhase = _currentPhase ? GREEN : RED;
+            _phases.send(std::move(_currentPhase));
         }
-
-        auto phase = _currentPhase;
-        _phases.send(std::move(phase));
     }
 
 }

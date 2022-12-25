@@ -31,8 +31,6 @@ class MessageQueue {
 
     private:
         std::deque<T> _queue;
-        std::condition_variable cond;
-        std::mutex _mutex;
 };
 
 
@@ -48,7 +46,6 @@ class TrafficLight : TrafficObject
 
     private:
         void cycleThroughPhases();
-
 
         MessageQueue<TrafficLightPhase> _phases;
         std::condition_variable _condition;
