@@ -28,14 +28,12 @@ private:
 class TrafficLight : TrafficObject
 {
     public:
-    // constructor / desctructor
-
 
     enum TrafficLightPhase { RED, GREEN };
     // getters / setters
 
     void waitForGreen();
-    void simulate();
+    void simulate() { threads.emplace_back(std::thread(&cycleThroughPhases, this)); };
     TrafficLightPhase getCurrentPhase() { return _currentPhase; };
 
     private:

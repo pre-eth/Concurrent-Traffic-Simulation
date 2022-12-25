@@ -1,6 +1,11 @@
 #include <iostream>
 #include <random>
+#include <chrono>
+#include <thread>
+
 #include "TrafficLight.h"
+
+namespace chrono = std::chrono;
 
 /* Implementation of class "MessageQueue" */
 
@@ -29,25 +34,27 @@ void TrafficLight::waitForGreen()
     // FP.5b : add the implementation of the method waitForGreen, in which an infinite while-loop 
     // runs and repeatedly calls the receive function on the message queue. 
     // Once it receives TrafficLightPhase::green, the method returns.
-}
-
-TrafficLightPhase TrafficLight::getCurrentPhase()
-{
-    return _currentPhase;
-}
-
-void TrafficLight::simulate()
-{
-    // FP.2b : Finally, the private method „cycleThroughPhases“ should be started in a thread when the public method „simulate“ is called. To do this, use the thread queue in the base class. 
-}
+} */
 
 // virtual function which is executed in a thread
 void TrafficLight::cycleThroughPhases()
 {
-    // FP.2a : Implement the function with an infinite loop that measures the time between two loop cycles 
-    // and toggles the current phase of the traffic light between red and green and sends an update method 
-    // to the message queue using move semantics. The cycle duration should be a random value between 4 and 6 seconds. 
-    // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles. 
+    std::uniform_real_distribution<double> ufd(4.0, 6.0);
+    std::default_random_engine rng;
+    auto cycleDuration = ufd(rng);
+    
+    auto start = chrono::high_resolution_clock::now();
+    auto end = chrono::high_resolution_clock::now();
+    auto elapsed = end - start;
+    
+    while (true) {
+        std::this_thread::sleep_for(chrono::milliseconds(1));
+        end = chrono::high_resolution_clock::now();
+        if (elapsed.count() > cycleDuration) {
+            start = chrono::high_resolution_clock::now();
+            _currentPhase = _currentPhase ? GREEN : RED;
+        }
+    }
+
 }
 
-*/
